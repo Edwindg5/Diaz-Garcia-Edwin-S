@@ -710,20 +710,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script>
-        // Crear partículas de fondo
-        function createParticles() {
-            const particles = document.getElementById('particles');
-            const particleCount = 50;
+        // Al inicio del script
+const isMobile = window.innerWidth <= 768;
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particles.appendChild(particle);
-            }
-        }
+if (!isMobile) {
+    // Solo ejecutar efectos pesados en desktop
+    createAdvancedParticles();
+    createMatrixEffect();
+    
+    // Efecto cursor solo en desktop
+    const cursor = document.createElement('div');
+    cursor.style.cssText = `
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle, #00d4ff, transparent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.1s ease;
+        display: none; /* Oculto inicialmente */
+    `;
+    document.body.appendChild(cursor);
+    
+    // Mostrar cursor solo si no es táctil
+    window.addEventListener('mousemove', (e) => {
+        cursor.style.display = 'block';
+        cursor.style.left = e.clientX - 10 + 'px';
+        cursor.style.top = e.clientY - 10 + 'px';
+    });
+}
+        // Crear partículas de fondo
+  function createParticles() {
+    const particles = document.getElementById('particles');
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 15 : 50; // Reduce partículas en móvil
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * (isMobile ? 5 : 10) + 10) + 's';
+        particles.appendChild(particle);
+    }
+}
 
         // Animaciones al cargar la página
         document.addEventListener('DOMContentLoaded', () => {

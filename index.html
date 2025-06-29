@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Precargar recursos críticos -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Backend Developer | Expert in Go, Python & Databases</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -532,11 +539,12 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.5rem !important;
+                line-height: 1.2;
             }
             
             .hero-subtitle {
-                font-size: 1.3rem;
+                font-size: 1.2rem !important;
             }
             
             .hero-logos {
@@ -544,13 +552,13 @@
             }
             
             .logo {
-                width: 80px;
-                height: 80px;
-                font-size: 2rem;
+                width: 70px !important;
+                height: 70px !important;
+                font-size: 1.8rem !important;
             }
             
             .terminal-window {
-                margin: 1rem;
+                margin: 1rem 0;
                 padding: 15px;
             }
             
@@ -774,21 +782,22 @@ if (!isMobile) {
             });
 
             // Animación de las cards al hacer scroll
-            gsap.utils.toArray('.card').forEach((card, index) => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    },
-                    y: 100,
-                    opacity: 0,
-                    duration: 1,
-                    delay: index * 0.2,
-                    ease: "power3.out"
-                });
-            });
+ // Modificar las animaciones para móviles
+gsap.utils.toArray('.card').forEach((card, index) => {
+    gsap.from(card, {
+        scrollTrigger: {
+            trigger: card,
+            start: "top " + (isMobile ? "90%" : "80%"),
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+            markers: false // Desactivar markers en producción
+        },
+        y: isMobile ? 50 : 100, // Menos movimiento en móvil
+        opacity: 0,
+        duration: isMobile ? 0.8 : 1,
+        ease: "power3.out"
+    });
+});
 
             // Animación de la base de datos
             const dbAnimation = document.getElementById('dbAnimation');

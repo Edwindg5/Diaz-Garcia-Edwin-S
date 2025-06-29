@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Developer | Expert in Go, Python & Databases</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --accent-blue: #60a5fa;
+            --dark-blue: #0f172a;
+            --steel-blue: #475569;
+            --gray-dark: #1f2937;
+            --gray-medium: #374151;
+            --gray-light: #6b7280;
+            --electric-blue: #00d4ff;
+            --cyber-green: #00ff88;
+            --neon-purple: #a855f7;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-blue);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Partículas de fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--electric-blue);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 50%, var(--gray-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(10px, 10px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--electric-blue), var(--cyber-green), var(--neon-purple));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-title span {
+            color: var(--cyber-green);
+            text-shadow: 0 0 20px var(--cyber-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent-blue);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .terminal-window {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--steel-blue);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 2rem 0;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-content {
+            font-family: 'Orbitron', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: typewriter 0.5s ease-out forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 1s; }
+        .terminal-line:nth-child(2) { animation-delay: 1.5s; }
+        .terminal-line:nth-child(3) { animation-delay: 2s; }
+        .terminal-line:nth-child(4) { animation-delay: 2.5s; }
+
+        @keyframes typewriter {
+            from { 
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .prompt { color: var(--cyber-green); }
+        .command { color: var(--electric-blue); }
+        .output { color: var(--accent-blue); }
+
+        .hero-logos {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .logo-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .logo:hover::before {
+            left: 100%;
+        }
+
+        .logo:hover {
+            transform: rotateY(15deg) scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .go-logo { color: var(--electric-blue); }
+        .python-logo { color: var(--cyber-green); }
+        .mysql-logo { color: var(--neon-purple); }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--accent-blue);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--gray-dark) 0%, var(--dark-blue) 100%);
+            position: relative;
+        }
+
+        .skills::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--cyber-green), var(--neon-purple));
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(45deg, var(--electric-blue), var(--cyber-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .skills h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--cyber-green));
+            border-radius: 2px;
+        }
+
+        .skill-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--steel-blue);
+            border-radius: 15px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--cyber-green), var(--neon-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 212, 255, 0.2);
+            border-color: var(--electric-blue);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 2rem;
+        }
+
+        /* Animaciones específicas para cada card */
+        .db-animation {
+            height: 120px;
+            background: rgba(30, 58, 138, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--primary-blue);
+        }
+
+        .db-bar {
+            position: absolute;
+            bottom: 0;
+            width: 15%;
+            background: linear-gradient(to top, var(--primary-blue), var(--electric-blue));
+            border-radius: 3px 3px 0 0;
+            animation: dbPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dbPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .code-animation {
+            height: 120px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Orbitron', monospace;
+            font-size: 12px;
+            overflow: hidden;
+            border: 1px solid var(--steel-blue);
+            position: relative;
+        }
+
+        .code-line {
+            margin: 3px 0;
+            opacity: 0;
+            color: var(--cyber-green);
+            animation: codeReveal 0.5s ease-out forwards;
+        }
+
+        @keyframes codeReveal {
+            from { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .typing-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--gray-dark) 100%);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid var(--steel-blue);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-blue);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--electric-blue);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: visible;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--electric-blue), var(--cyber-green));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .social-link:hover::before {
+            opacity: 0.2;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: var(--electric-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-logos {
+                gap: 1.5rem;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .terminal-window {
+                margin: 1rem;
+                padding: 15px;
+            }
+            
+            .skills {
+                padding: 4rem 1rem;
+            }
+            
+            .skills h2 {
+                font-size: 2.2rem;
+            }
+            
+            .skill-cards {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Efectos adicionales */
+        .glitch {
+            animation: glitch 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--electric-blue), -0.05em -0.025em 0 var(--cyber-green), 0.025em 0.05em 0 var(--neon-purple);
+            }
+            15% {
+                text-shadow: 0.05em 0 0 var(--electric-blue), -0.05em -0.025em 0 var(--cyber-green), 0.025em 0.05em 0 var(--neon-purple);
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 var(--electric-blue), 0.025em 0.025em 0 var(--cyber-green), -0.05em -0.05em 0 var(--neon-purple);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--electric-blue), 0.025em 0.025em 0 var(--cyber-green), -0.05em -0.05em 0 var(--neon-purple);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--electric-blue), 0.05em 0 0 var(--cyber-green), 0 -0.05em 0 var(--neon-purple);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--electric-blue), 0.05em 0 0 var(--cyber-green), 0 -0.05em 0 var(--neon-purple);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--electric-blue), -0.025em -0.025em 0 var(--cyber-green), -0.025em -0.05em 0 var(--neon-purple);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+    // Fuerza la visibilidad después de que todo cargue
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.social-link i').forEach(icon => {
+            icon.style.opacity = '1';
+            icon.style.visibility = 'visible';
+        });
+    });
+</script>
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Hola, soy <span class="glitch">Backend Developer</span></h1>
+            <p class="hero-subtitle">Especializado en Go, Python y Bases de Datos</p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-content">
+                    <div class="terminal-line"><span class="prompt">$</span> <span class="command">whoami</span></div>
+                    <div class="terminal-line"><span class="output">Backend Developer</span></div>
+                    <div class="terminal-line"><span class="prompt">$</span> <span class="command">skills --list</span></div>
+                    <div class="terminal-line"><span class="output">Go | Python | MySQL | MariaDB | TypeScript</span></div>
+                </div>
+            </div>
+
+            <div class="hero-logos">
+                <div class="logo-container">
+                    <div class="logo go-logo">
+                        <i class="fab fa-golang"></i>
+                    </div>
+                </div>
+                <div class="logo-container">
+                    <div class="logo python-logo">
+                        <i class="fab fa-python"></i>
+                    </div>
+                </div>
+                <div class="logo-container">
+                    <div class="logo mysql-logo">
+                        <i class="fas fa-database"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>Desplázate</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <div class="skills-container">
+            <h2>Mis Skills</h2>
+            <div class="skill-cards">
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-database card-icon"></i>
+                        Bases de Datos
+                    </h3>
+                    <p>MySQL, MariaDB, HeidiSQL</p>
+                    <div class="db-animation" id="dbAnimation"></div>
+                </div>
+                <div class="card">
+                    <h3>
+                        <i class="fas fa-code card-icon"></i>
+                        Lenguajes
+                    </h3>
+                    <p>Go, Python, TypeScript</p>
+                    <div class="code-animation" id="codeAnimation"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer>
+    <div class="footer-content">
+        <p>¡Conéctate conmigo!</p>
+        <div class="social-links">
+            <a href="https://github.com/Edwindg5" target="_blank" class="social-link" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/edwin-de-jesus-diaz-garcia-0014982a1/" target="_blank" class="social-link" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        // Crear partículas de fondo
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Animaciones al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+
+            // Registrar ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Animación inicial de los logos
+            gsap.from(".logo-container", {
+                duration: 1.5,
+                y: 100,
+                opacity: 0,
+                stagger: 0.3,
+                ease: "back.out(1.7)",
+                delay: 3
+            });
+
+            // Animación de las cards al hacer scroll
+            gsap.utils.toArray('.card').forEach((card, index) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 100,
+                    opacity: 0,
+                    duration: 1,
+                    delay: index * 0.2,
+                    ease: "power3.out"
+                });
+            });
+
+            // Animación de la base de datos
+            const dbAnimation = document.getElementById('dbAnimation');
+            if (dbAnimation) {
+                for (let i = 0; i < 6; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'db-bar';
+                    bar.style.left = `${i * 16}%`;
+                    bar.style.animationDelay = `${i * 0.2}s`;
+                    dbAnimation.appendChild(bar);
+
+                    gsap.to(bar, {
+                        scrollTrigger: {
+                            trigger: dbAnimation,
+                            start: "top 80%",
+                            toggleActions: "play none none reverse"
+                        },
+                        height: `${Math.random() * 60 + 20}%`,
+                        duration: 1,
+                        delay: i * 0.1,
+                        ease: "power2.out"
+                    });
+                }
+            }
+
+            // Animación del código
+            const codeAnimation = document.getElementById('codeAnimation');
+            if (codeAnimation) {
+                const codeLines = [
+                    "package main",
+                    "func connectDB() {",
+                    "  db, err := sql.Open(...)",
+                    "  defer db.Close()",
+                    "}<span class='typing-cursor'>|</span>"
+                ];
+
+                codeLines.forEach((line, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'code-line';
+                    div.innerHTML = line;
+                    div.style.animationDelay = `${i * 0.3}s`;
+                    codeAnimation.appendChild(div);
+                });
+            }
+
+            // Efecto de hover en los logos
+            document.querySelectorAll('.logo').forEach(logo => {
+                logo.addEventListener('mouseenter', () => {
+                    gsap.to(logo, {
+                        scale: 1.2,
+                        rotation: 360,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                });
+
+                logo.addEventListener('mouseleave', () => {
+                    gsap.to(logo, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                });
+            });
+
+            // Animación de scroll suave
+            document.querySelector('.scroll-indicator').addEventListener('click', () => {
+                gsap.to(window, {
+                    duration: 1.5,
+                    scrollTo: ".skills",
+                    ease: "power2.inOut"
+                });
+            });
+
+            // Efecto parallax en el hero
+            gsap.to(".hero-content", {
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: -100,
+                opacity: 0.8
+            });
+
+            // Animación de entrada del footer
+            gsap.from(".footer-content", {
+                scrollTrigger: {
+                    trigger: "footer",
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            // Animación de los enlaces sociales
+       gsap.from(".social-link i", {  // Animamos directamente los íconos
+       scrollTrigger: {
+        trigger: ".social-links",
+        start: "top 90%",
+        toggleActions: "play none none none" // Solo play una vez
+    },
+    scale: 0,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+    immediateRender: false // Importante para evitar flashes
+});
+        });
+
+        // Efecto cursor personalizado
+        const cursor = document.createElement('div');
+        cursor.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #00d4ff, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        `;
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        // Efecto de hover en elementos interactivos
+        document.querySelectorAll('a, button, .logo, .card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2)';
+                cursor.style.background = 'radial-gradient(circle, #00ff88, transparent)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.background = 'radial-gradient(circle, #00d4ff, transparent)';
+            });
+        });
+
+        // Efecto de escritura en tiempo real
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Crear efecto de matriz de código en el fondo
+        function createMatrixEffect() {
+            const canvas = document.createElement('canvas');
+            canvas.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -2;
+                opacity: 0.05;
+                pointer-events: none;
+            `;
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>?';
+            const charArray = chars.split('');
+            
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00d4ff';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = charArray[Math.floor(Math.random() * charArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 33);
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Inicializar efecto matriz después de un delay
+        setTimeout(createMatrixEffect, 2000);
+
+        // Animación de contador numérico
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            }
+            updateCounter();
+        }
+
+        // Efecto de ondas al hacer clic
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                width: 100px;
+                height: 100px;
+                background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                animation: ripple 0.6s ease-out;
+                left: ${e.clientX - 50}px;
+                top: ${e.clientY - 50}px;
+            `;
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Añadir keyframes para la animación de ondas
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+
+        // Efecto de glitch aleatorio en el título
+        function randomGlitch() {
+            const title = document.querySelector('.hero-title span');
+            if (title && Math.random() > 0.95) {
+                title.style.animation = 'none';
+                setTimeout(() => {
+                    title.style.animation = 'pulse 2s infinite';
+                }, 100);
+            }
+        }
+
+        setInterval(randomGlitch, 3000);
+
+        // Animación de hover para las cards con efecto 3D
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+
+
+        
+
+        // Efectos de sonido simulados con vibración en dispositivos móviles
+        function vibrate(pattern = [100]) {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        // Añadir vibración a los elementos interactivos
+        document.querySelectorAll('.logo, .social-link').forEach(el => {
+            el.addEventListener('click', () => vibrate([50]));
+        });
+
+        // Sistema de partículas mejorado
+        function createAdvancedParticles() {
+            const particleContainer = document.getElementById('particles');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 4 + 1}px;
+                    height: ${Math.random() * 4 + 1}px;
+                    background: ${Math.random() > 0.5 ? '#00d4ff' : '#00ff88'};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    opacity: ${Math.random() * 0.8 + 0.2};
+                `;
+                
+                const startX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight + 10;
+                const endY = -10;
+                const drift = (Math.random() - 0.5) * 100;
+                
+                particle.style.left = startX + 'px';
+                particle.style.top = startY + 'px';
+                
+                particleContainer.appendChild(particle);
+                
+                gsap.to(particle, {
+                    y: endY - startY,
+                    x: drift,
+                    duration: Math.random() * 10 + 5,
+                    ease: "none",
+                    onComplete: () => {
+                        particle.remove();
+                    }
+                });
+                
+                gsap.to(particle, {
+                    opacity: 0,
+                    duration: 1,
+                    delay: Math.random() * 8 + 2
+                });
+            }
+            
+            // Crear partículas continuamente
+            setInterval(createParticle, 300);
+        }
+
+        // Inicializar partículas avanzadas
+        setTimeout(createAdvancedParticles, 1000);
+
+        // Efecto de zoom en imágenes/logos
+        document.querySelectorAll('.logo').forEach(logo => {
+            logo.addEventListener('click', () => {
+                gsap.to(logo, {
+                    scale: 1.5,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    yoyo: true,
+                    repeat: 1
+                });
+            });
+        });
+
+        // Detección de scroll para efectos adicionales
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
+            
+            // Efecto parallax en las partículas
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                const speed = Math.random() * 0.5 + 0.1;
+                const currentTransform = particle.style.transform || '';
+                particle.style.transform = currentTransform + ` translateY(${scrollTop * speed}px)`;
+            });
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Animación de loading inicial
+        function showLoadingAnimation() {
+            const loader = document.createElement('div');
+            loader.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                flex-direction: column;
+            `;
+            
+            loader.innerHTML = `
+                <div style="font-family: 'Orbitron', monospace; font-size: 2rem; color: #00d4ff; margin-bottom: 2rem;">
+                    Inicializando...
+                </div>
+                <div style="width: 200px; height: 4px; background: rgba(0, 212, 255, 0.2); border-radius: 2px; overflow: hidden;">
+                    <div id="loadingBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00d4ff, #00ff88); transition: width 0.3s ease;"></div>
+                </div>
+            `;
+            
+            document.body.appendChild(loader);
+            
+            // Simular carga
+            let progress = 0;
+            const loadingBar = document.getElementById('loadingBar');
+            const loadingInterval = setInterval(() => {
+                progress += Math.random() * 15 + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+                    
+                    setTimeout(() => {
+                        gsap.to(loader, {
+                            opacity: 0,
+                            duration: 0.5,
+                            onComplete: () => {
+                                loader.remove();
+                            }
+                        });
+                    }, 500);
+                }
+                loadingBar.style.width = progress + '%';
+            }, 100);
+        }
+
+        // Mostrar animación de carga al inicio
+        // showLoadingAnimation();
+    </script>
+</body>
+</html>
